@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+spec:
+  replicas: 5
+  template:
+    spec:
+      containers:
+        - name: hello-world
+          image: postgres:9.6
