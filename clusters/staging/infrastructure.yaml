@@ -6,7 +6,7 @@ spec:
   interval: 10m0s
   sourceRef:
     kind: GitRepository
-    name: gitops
+    name: flux-system
   path: ./infrastructure
   prune: true
   validation: client
