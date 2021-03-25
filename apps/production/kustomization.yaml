@@ -4,5 +4,6 @@ commonLabels:
   variant: production
 bases:
   - ../base/
+namePrefix: production-
 patchesStrategicMerge:
   - hello-world/deployment.yaml
