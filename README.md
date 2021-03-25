@@ -41,5 +41,5 @@ flux bootstrap github \
 --owner=$GITHUB_USER \
 --repository=GitOps \
 --branch=main \
---path=./clusters/my-cluster \
+--path=./clusters/staging \
 --personal
