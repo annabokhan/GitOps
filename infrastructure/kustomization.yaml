@@ -3,4 +3,4 @@ kind: Kustomization
 commonLabels:
   app: infra
 bases:
-  - ../eks
+  - sqs
