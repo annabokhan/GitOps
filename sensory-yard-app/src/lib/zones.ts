@@ -22,7 +22,16 @@ import { ZoneId } from "./types";
  */
 export const ZONE_CATALOG: Record<
   ZoneId,
-  { title: string; icon: string; keywords: string[]; description: string; ideas: string[]; whereToShop: string }
+  {
+    title: string;
+    icon: string;
+    keywords: string[];
+    description: string;
+    ideas: string[];
+    /** Ready-made, minimal-assembly alternative idea set — used by mockGenerate.ts when a parent signals they're not handy and not hiring anyone. */
+    easyIdeas: string[];
+    whereToShop: string;
+  }
 > = {
   movement: {
     title: "Movement Zone",
@@ -30,7 +39,8 @@ export const ZONE_CATALOG: Record<
     keywords: [
       "climb", "run", "jump", "spin", "swing", "big movement", "cant sit still",
       "can't sit still", "balance", "bike", "scooter", "scoot", "trike", "tricycle",
-      "wheels", "riding", "chase", "energy", "bolt", "wired",
+      "wheels", "riding", "chase", "energy", "bolt", "wired", "daring", "fearless",
+      "no fear",
     ],
     description:
       "Big, safe ways to move — built for a kid whose body needs to move to feel settled.",
@@ -38,8 +48,15 @@ export const ZONE_CATALOG: Record<
       "Balance beam or a stepping path made from tree rounds",
       "Tunnel to crawl through",
       "Saucer or platform swing",
-      "Low climbing structure or log pile",
+      "Spinning chair or fabric sensory swing hung from a sturdy branch or a beam",
+      "Low climbing structure or log pile — or, for a kid chasing a bigger challenge, a climbing-wall panel with grip holds mounted against a sturdy tree trunk or fence post",
       "A smooth hard-surfaced loop — even a modest paved patch, existing patio, or deck — for bikes, scooters, or trikes; a flat loop gets used far more than its size suggests",
+    ],
+    easyIdeas: [
+      "A store-bought saucer or platform swing, hung from an existing sturdy branch or beam — no building beyond hanging it",
+      "A ready-made spinning chair or fabric sensory swing, same easy hang",
+      "A pop-up tunnel to crawl through",
+      "The existing patio or driveway, used as-is as a bike/scooter loop",
     ],
     whereToShop:
       "Lumber and hardware from Home Depot or Lowe's; tree rounds, secondhand swing sets, climbing structures, and bikes/scooters often turn up free or cheap on Nextdoor or Facebook Marketplace, especially after a neighbor has a tree removed.",
@@ -61,6 +78,12 @@ export const ZONE_CATALOG: Record<
       "Water table or creek rocks",
       "A simple mud kitchen from a repurposed pallet or old kitchen cart",
     ],
+    easyIdeas: [
+      "A store-bought sandbox with a lid, filled and ready to go",
+      "A few potted herbs (mint, chives) set at kid height, no digging required",
+      "Textured stepping stones, simply placed on the ground",
+      "A ready-made plastic water table",
+    ],
     whereToShop:
       "Sand, mulch, and stepping stones from Home Depot, Lowe's, or a local landscaping-supply yard; herb starts from a local nursery; a repurposed pallet or old kitchen cart for a mud kitchen is easy to find free or cheap on Facebook Marketplace.",
   },
@@ -77,6 +100,11 @@ export const ZONE_CATALOG: Record<
       "A genuinely comfortable two-person hammock chair or papasan, not just any bench",
       "Wind chimes or rustling grasses for gentle sound",
       "Shade cover from a tree or simple pergola, sized to fit an adult chair underneath",
+    ],
+    easyIdeas: [
+      "A store-bought hammock chair or papasan chair, freestanding or hung from an existing branch",
+      "A pop-up shade canopy or umbrella, no construction needed",
+      "Hanging wind chimes",
     ],
     whereToShop:
       "A hammock chair or outdoor cushions from a home-goods store like Target or World Market; shade cloth or a simple pergola kit from Home Depot or a local garden center.",
@@ -96,6 +124,11 @@ export const ZONE_CATALOG: Record<
       "A few cherry tomato plants if there's a bit of extra water to give them in summer",
       "Raised bed at kid height for easy reach",
     ],
+    easyIdeas: [
+      "Potted rosemary, thyme, and oregano — no digging or beds to build",
+      "A dwarf citrus or kumquat in a large pot instead of planted in-ground",
+      "A couple of cherry tomato plants in store-bought containers",
+    ],
     whereToShop:
       "Herb and fruit-tree starts from a local nursery (ask specifically for what's suited to a hot, dry summer); raised-bed kits from Home Depot, Lowe's, or online.",
   },
@@ -112,6 +145,11 @@ export const ZONE_CATALOG: Record<
       "Wind spinners or ribbon streamers",
       "A small pond-safe birdbath",
       "Colorful, varied plantings at eye level",
+    ],
+    easyIdeas: [
+      "Potted butterfly- and bird-friendly flowers, no bed to dig",
+      "Store-bought wind spinners, staked into the ground",
+      "A birdbath on a stand — just set it in place",
     ],
     whereToShop:
       "Bird- and butterfly-friendly plants from a local nursery; wind spinners and birdbaths from a garden center, Target, or a marketplace like Etsy.",
@@ -131,6 +169,11 @@ export const ZONE_CATALOG: Record<
       "A shaded, comfortable sitting area right at the edge of it — real outdoor chairs, not a plank of wood — so you can actually be there with them",
       "A blanket-sized flat patch for a shared picnic spot",
     ],
+    easyIdeas: [
+      "A store-bought saucer swing or wide hammock, hung from an existing branch",
+      "A couple of outdoor folding chairs set right at the edge of it",
+      "A picnic blanket spot — no building at all",
+    ],
     whereToShop:
       "A saucer swing or wide hammock from a garden center or Target/Walmart, or secondhand on Facebook Marketplace; outdoor chairs and shade structures from Home Depot, Lowe's, or a home-goods store.",
   },
@@ -148,6 +191,10 @@ export const ZONE_CATALOG: Record<
       "A small backyard chicken coop (check local rules first)",
       "A fenced, shallow, kid-safe fish pond",
       "A rabbit hutch with a grass run",
+    ],
+    easyIdeas: [
+      "A simple store-bought bird feeder station — no coop, hutch, or pond required to start",
+      "A hanging hummingbird feeder, just hung in place",
     ],
     whereToShop:
       "Coop and hutch kits from Tractor Supply or online; check Facebook Marketplace for secondhand structures, and always check local ordinances before bringing animals home.",

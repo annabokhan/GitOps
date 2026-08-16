@@ -10,9 +10,9 @@ import { CHAT_PROMPTS } from "@/lib/prompts";
 import { IntakeAnswers } from "@/lib/types";
 import { parseAges } from "@/lib/ages";
 
-const TOTAL_STEPS = 1 + CHAT_PROMPTS.length; // quick facts + 3 open prompts (review isn't counted in dots)
+const TOTAL_STEPS = 1 + CHAT_PROMPTS.length; // quick facts + open prompts (review isn't counted in dots)
 
-const EMPTY_ANSWERS: IntakeAnswers = { age: "", zip: "", gravitates: "", challenges: "", space: "" };
+const EMPTY_ANSWERS: IntakeAnswers = { age: "", zip: "", gravitates: "", challenges: "", space: "", handiness: "" };
 
 export default function IntakePage() {
   const router = useRouter();

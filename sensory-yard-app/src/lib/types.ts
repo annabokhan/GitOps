@@ -16,6 +16,8 @@ export interface IntakeAnswers {
   gravitates: string;
   challenges: string;
   space: string;
+  /** How hands-on the parent wants to be: DIY, hire it out, or keep it to ready-made/low-assembly items. */
+  handiness: string;
 }
 
 export interface Report {

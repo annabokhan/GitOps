@@ -2,6 +2,24 @@ import { ZONE_CATALOG } from "./zones";
 import { IntakeAnswers, Zone, ZoneId } from "./types";
 
 /**
+ * Very rough signal for "not handy and not hiring anyone" from the
+ * free-text handiness answer. A static keyword check can't do the
+ * nuanced per-idea tailoring the real LLM path does (planPrompt.ts) —
+ * this only decides whether to swap in each zone's easyIdeas list
+ * wholesale (zones.ts), a known approximation for the fallback path.
+ */
+function wantsLowAssembly(handiness: string): boolean {
+  const t = handiness.toLowerCase();
+  if (!t.trim()) return false;
+  const noBuildSignal = /keep it simple|no building|not (very )?handy|don'?t want to build|store.?bought|ready.?made|no diy/.test(t);
+  // Deliberately excludes bare "handy" — "not handy" would otherwise also
+  // match this as a false positive override, since "handy" alone doesn't
+  // distinguish "I'm handy" from "I'm not handy".
+  const buildOrHireSignal = /\bdiy\b|\bbuild\b|love (a )?project|construct|\bhire\b|contractor|handyman|pay someone|professional/.test(t);
+  return noBuildSignal && !buildOrHireSignal;
+}
+
+/**
  * Deterministic keyword-matching fallback — used by generatePlanLLM.ts
  * only when the real gateway call (primary and fallback model, both via
  * lib/llmGateway.ts) fails, times out, or returns invalid/banned-term
@@ -10,6 +28,7 @@ import { IntakeAnswers, Zone, ZoneId } from "./types";
  */
 export function generatePlan(answers: IntakeAnswers): Zone[] {
   const combined = `${answers.gravitates} ${answers.challenges} ${answers.space}`.toLowerCase();
+  const lowAssembly = wantsLowAssembly(answers.handiness ?? "");
 
   const scores = Object.fromEntries(
     (Object.keys(ZONE_CATALOG) as ZoneId[]).map((id) => [
@@ -32,7 +51,8 @@ export function generatePlan(answers: IntakeAnswers): Zone[] {
 
   return chosen.map((id) => {
     const z = ZONE_CATALOG[id];
-    return { id, title: z.title, icon: z.icon, description: z.description, ideas: z.ideas, whereToShop: z.whereToShop };
+    const ideas = lowAssembly && z.easyIdeas.length ? z.easyIdeas : z.ideas;
+    return { id, title: z.title, icon: z.icon, description: z.description, ideas, whereToShop: z.whereToShop };
   });
 }
 

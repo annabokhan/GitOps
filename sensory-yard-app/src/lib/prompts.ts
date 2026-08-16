@@ -1,5 +1,5 @@
 export interface ChatPrompt {
-  key: "gravitates" | "challenges" | "space";
+  key: "gravitates" | "challenges" | "space" | "handiness";
   assistant: string;
   placeholder: string;
   chips: string[];
@@ -30,6 +30,18 @@ export const CHAT_PROMPTS: ChatPrompt[] = [
       "already have a garden bed",
       "open, no fence",
       "open to a bigger project (coop, pond, tree house)",
+    ],
+  },
+  {
+    key: "handiness",
+    assistant:
+      "Last one — how hands-on do you want to be? Comfortable building things yourself, would rather hire someone for bigger projects, or want to keep it mostly ready-made?",
+    placeholder: "e.g. I love a DIY project, or we'd hire someone for anything big, or keep it simple — no building for us...",
+    chips: [
+      "I like building things myself",
+      "happy to hire someone for bigger stuff",
+      "keep it simple — no building",
+      "a mix, depends on the project",
     ],
   },
 ];

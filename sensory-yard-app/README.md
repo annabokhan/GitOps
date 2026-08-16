@@ -49,7 +49,12 @@ not a native build.
   logs," and `whereToShop` guidance (both the prompt and the mock
   catalog) now names Nextdoor alongside Facebook Marketplace/Craigslist
   — Nextdoor in particular for things a neighbor's giving away after
-  yard work, tree rounds being the classic example. The
+  yard work, tree rounds being the classic example. The movement zone
+  also now includes a spinning chair/fabric sensory swing (hung, not
+  built) as a full peer to the saucer swing, and a climbing-wall panel
+  mounted against a sturdy tree or fence post as a step-up option —
+  gated in the prompt to a kid described as daring, fearless, or
+  chasing a bigger challenge, not offered by default. The
   structured-output schema lives in `src/lib/planSchema.ts`, the
   banned-term list + programmatic
   second-layer check in `src/lib/bannedTerms.ts`, and the
@@ -91,6 +96,24 @@ not a native build.
   (`generatePlanLLM.ts`); the mock fallback's catalog carries a default
   per zone (`zones.ts`); rendered under each zone card's ideas
   (`ZoneCard.tsx`).
+- **Parent's handiness / build willingness** — a real gap: the plan had no
+  sense of whether a parent actually wants to build things, would rather
+  hire it out, or wants none of that. There's now a 4th chat intake
+  question (`src/lib/prompts.ts`, key `handiness`) asking exactly that,
+  added to `IntakeAnswers` (`types.ts`) and passed into
+  `buildPlanUserMessage`. The prompt (`planPrompt.ts`, "How hands-on this
+  parent wants to be") treats this as a separate axis from the existing
+  capacity/appetite gating above it — a family can have budget and still
+  not want to swing a hammer, or the reverse — and tones every idea down
+  to ready-made, minimal-assembly elements (potted plants instead of dug
+  beds, a hung swing instead of a built structure) when the parent signals
+  neither DIY interest nor willingness to hire, versus leaving bigger
+  builds in but reframing them as hire-a-handyman work when they'd rather
+  pay someone. The mock fallback approximates the same behavior with a
+  keyword heuristic (`wantsLowAssembly` in `mockGenerate.ts`) that swaps
+  in a curated `easyIdeas` list per zone (`zones.ts`) — necessarily a
+  cruder approximation than the real LLM path, same caveat as the
+  regional-climate static defaults above.
 - **Multiple kids** — the age quick-fact (`src/lib/ages.ts`'s `parseAges`)
   accepts one age or several comma-separated, since the connection zone
   and the mission doc it's grounded in are explicitly about siblings
