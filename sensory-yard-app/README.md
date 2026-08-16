@@ -36,16 +36,27 @@ not a native build.
   before this goes further than a demo.
 - **Email capture** (`src/app/api/notify`) — logs to the console instead
   of writing to a real list.
-- **Yard sketch** (`src/components/YardSketch.tsx`, `src/lib/blob.ts`,
-  `src/lib/seededRandom.ts`, `src/components/sketch/doodles.tsx`) — real,
-  but procedural, not AI-image-generated (design doc §5.4 explains why:
-  cost, latency, and label-accuracy risk). Organic zone shapes and a
-  wobbled yard boundary come from a small deterministic path library;
-  per-zone doodles (tree, flowers, sprouts, pebbles, motion lines) are
-  hand-coded SVG. Everything is seeded from the report id + zone id, never
-  `Math.random()` — required so server-rendered and client-hydrated SVG
-  match exactly (a `Math.random()`-based version will throw a hydration
-  mismatch error).
+- **Yard visual** — two real paths, not mocked, chosen by `YardVisual.tsx`:
+  - **AI image** (`src/lib/imageGen.ts` + `src/lib/imagePrompt.ts`) — a
+    real call to fal.ai's Flux Schnell (cheap tier, ~$0.003–$0.005/image;
+    design doc §5.4 has the full cost reasoning), with a detailed prompt
+    enumerating each zone's specific idea items, not just its name.
+    **Untested against a live key**: this sandbox has no `FAL_KEY` and
+    fal.ai is blocked at the network egress proxy here, so this path has
+    only been verified to fail gracefully (see below), not to succeed —
+    double-check the request/response shape against fal's current docs
+    once you wire a real key somewhere that can reach it.
+  - **SVG fallback** (`src/components/YardSketch.tsx`, `src/lib/blob.ts`,
+    `src/lib/seededRandom.ts`, `src/components/sketch/doodles.tsx`) —
+    procedural, always available. Used whenever the image call is
+    skipped (no `FAL_KEY`), times out, errors, or the returned URL fails
+    to load client-side. Organic zone shapes and a wobbled yard boundary
+    come from a small deterministic path library; per-zone doodles (tree,
+    flowers, sprouts, pebbles, motion lines) are hand-coded SVG.
+    Everything is seeded from the report id + zone id, never
+    `Math.random()` — required so server-rendered and client-hydrated SVG
+    match exactly (a `Math.random()`-based version throws a hydration
+    mismatch error).
 
 ## Config (design doc §9 — usage limits)
 
@@ -55,6 +66,14 @@ not a native build.
 | `USAGE_LIMIT_WINDOW_DAYS` | 7 | Rolling window for the above |
 | `USAGE_LIMIT_PER_IP` | 12 | Coarser per-IP/day abuse backstop |
 
+## Config (yard image generation)
+
+| Env var | Default | Meaning |
+|---|---|---|
+| `FAL_KEY` | unset | fal.ai API key. Unset = every report silently uses the SVG fallback (this is the state in this sandbox and in any deploy without the key set) — nothing breaks, no error surfaces to the parent. |
+
+Get a key at [fal.ai](https://fal.ai). Flux Schnell is priced per-image on their site; treat the ~$0.003–$0.005 figure in the design doc as a planning estimate, not a quote — check current pricing before relying on it for a budget.
+
 ## Known gaps vs. the design doc
 
 - No PWA manifest/icons yet (design doc §2).
@@ -62,3 +81,5 @@ not a native build.
   Cloudflare Turnstile or similar).
 - Visual design (palette, type) is a first pass, not a final brand pass —
   see design doc §13.
+- Image generation (`FAL_KEY`) has not been exercised against a live API
+  — see the "Yard visual" note above.

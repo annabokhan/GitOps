@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { checkUsage, recordUsage, saveReport } from "@/lib/store";
 import { generatePlan, extractName } from "@/lib/mockGenerate";
+import { generateYardImage } from "@/lib/imageGen";
+import { buildYardImagePrompt } from "@/lib/imagePrompt";
 import { IntakeAnswers } from "@/lib/types";
 
 /**
@@ -27,7 +29,17 @@ export async function POST(req: NextRequest) {
   const kidName = extractName(answers);
   const id = randomUUID();
 
-  saveReport({ id, kidName, zones, createdAt: new Date().toISOString() });
+  // Best-effort — a failed/skipped image never fails the report or the
+  // usage accounting below; the frontend falls back to the SVG sketch.
+  const imageResult = await generateYardImage(buildYardImagePrompt(zones));
+
+  saveReport({
+    id,
+    kidName,
+    zones,
+    createdAt: new Date().toISOString(),
+    imageUrl: imageResult.ok ? imageResult.url : undefined,
+  });
   recordUsage(anonId, ip);
 
   return NextResponse.json({ blocked: false, id });

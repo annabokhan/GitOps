@@ -21,4 +21,6 @@ export interface Report {
   kidName?: string;
   zones: Zone[];
   createdAt: string;
+  /** Set only when AI image generation succeeded (lib/imageGen.ts) — absent means the frontend renders the deterministic SVG sketch instead. */
+  imageUrl?: string;
 }
