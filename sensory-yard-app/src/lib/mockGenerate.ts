@@ -32,7 +32,7 @@ export function generatePlan(answers: IntakeAnswers): Zone[] {
 
   return chosen.map((id) => {
     const z = ZONE_CATALOG[id];
-    return { id, title: z.title, icon: z.icon, description: z.description, ideas: z.ideas };
+    return { id, title: z.title, icon: z.icon, description: z.description, ideas: z.ideas, whereToShop: z.whereToShop };
   });
 }
 

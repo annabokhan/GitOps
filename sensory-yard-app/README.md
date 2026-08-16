@@ -51,6 +51,26 @@ not a native build.
   live key**: this sandbox has no `OPENROUTER_API_KEY`; every request
   here falls through to the mock generator, which has been verified end-
   to-end (see below) — the gateway call itself has not.
+- **Regional climate/water awareness** — a review of an actual sample
+  plan found the zip code was collected at intake but never sent to the
+  model at all. `buildPlanUserMessage` now includes it, with an explicit
+  instruction to infer regional climate from it and default to
+  drought-tolerant plants/ground covers for an arid zip rather than a
+  thirsty lawn. This leans on the model's own geographic knowledge, not
+  a real climate-zone lookup — a known approximation (design doc §13).
+- **The parent's own experience** — same review found it only showed up
+  if the calm zone happened to get picked, and even then as a single
+  "add a bench" line. The prompt now has a standalone requirement
+  (`planPrompt.ts`, "The parent's own experience is not optional") for a
+  real, specifically-described adult-seating element in every plan,
+  regardless of which zones are chosen.
+- **`whereToShop`** — new required field per zone (`types.ts`,
+  `planSchema.ts`) with 1–2 sentences of realistic sourcing (real store/
+  chain categories, online marketplaces for secondhand). Validated and
+  banned-term-checked the same as `description`/`ideas`
+  (`generatePlanLLM.ts`); the mock fallback's catalog carries a default
+  per zone (`zones.ts`); rendered under each zone card's ideas
+  (`ZoneCard.tsx`).
 - **Multiple kids** — the age quick-fact (`src/lib/ages.ts`'s `parseAges`)
   accepts one age or several comma-separated, since the connection zone
   and the mission doc it's grounded in are explicitly about siblings

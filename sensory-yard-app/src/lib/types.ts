@@ -6,6 +6,8 @@ export interface Zone {
   icon: string;
   description: string;
   ideas: string[];
+  /** Realistic places to source the materials/plants for this zone — stores, marketplaces. */
+  whereToShop: string;
 }
 
 export interface IntakeAnswers {

@@ -26,6 +26,10 @@ export default function ZoneCard({ zone, index }: { zone: Zone; index: number })
           </li>
         ))}
       </ul>
+      <p className="mt-3 border-t border-line pt-3 text-xs text-bark-soft">
+        <span className="font-semibold text-bark">Where to find it: </span>
+        {zone.whereToShop}
+      </p>
     </div>
   );
 }

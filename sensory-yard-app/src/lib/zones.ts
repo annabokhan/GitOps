@@ -13,7 +13,7 @@ import { ZoneId } from "./types";
  */
 export const ZONE_CATALOG: Record<
   ZoneId,
-  { title: string; icon: string; keywords: string[]; description: string; ideas: string[] }
+  { title: string; icon: string; keywords: string[]; description: string; ideas: string[]; whereToShop: string }
 > = {
   movement: {
     title: "Movement Zone",
@@ -30,6 +30,8 @@ export const ZONE_CATALOG: Record<
       "Saucer or platform swing",
       "Low climbing structure or log pile",
     ],
+    whereToShop:
+      "Lumber and hardware from Home Depot or Lowe's; secondhand swing sets and climbing structures often turn up on Facebook Marketplace or Craigslist for a fraction of retail price.",
   },
   texture: {
     title: "Texture Zone",
@@ -47,6 +49,8 @@ export const ZONE_CATALOG: Record<
       "Water table or creek rocks",
       "A simple mud kitchen from a repurposed pallet or old kitchen cart",
     ],
+    whereToShop:
+      "Sand, mulch, and stepping stones from Home Depot, Lowe's, or a local landscaping-supply yard; a repurposed pallet or old kitchen cart for a mud kitchen is easy to find free or cheap on Facebook Marketplace.",
   },
   calm: {
     title: "Calm Corner",
@@ -55,13 +59,15 @@ export const ZONE_CATALOG: Record<
       "cautious", "overwhelm", "loud", "crowd", "quiet", "meltdown", "shy",
       "slow to warm", "retreat", "calm", "anxious", "noise",
     ],
-    description: "A low-stimulation spot to retreat to when it's all a bit much.",
+    description: "A low-stimulation spot to retreat to when it's all a bit much — and just as much a spot for you to sit down and actually watch, not just supervise.",
     ideas: [
       "Small tucked-away nook with a canopy or tall grasses",
-      "Soft seating or a hammock chair",
+      "A genuinely comfortable two-person hammock chair or papasan, not just any bench",
       "Wind chimes or rustling grasses for gentle sound",
-      "Shade cover from a tree or simple pergola",
+      "Shade cover from a tree or simple pergola, sized to fit an adult chair underneath",
     ],
+    whereToShop:
+      "A hammock chair or outdoor cushions from a home-goods store like Target or World Market; shade cloth or a simple pergola kit from Home Depot or a local garden center.",
   },
   "taste-smell": {
     title: "Taste & Smell Garden",
@@ -78,6 +84,8 @@ export const ZONE_CATALOG: Record<
       "A young fruit tree to track over a season",
       "Raised bed at kid height for easy reach",
     ],
+    whereToShop:
+      "Herb and vegetable starts from a local nursery or garden center (ask for what's actually suited to your climate); raised-bed kits from Home Depot, Lowe's, or online.",
   },
   visual: {
     title: "Watching & Wondering Zone",
@@ -93,6 +101,8 @@ export const ZONE_CATALOG: Record<
       "A small pond-safe birdbath",
       "Colorful, varied plantings at eye level",
     ],
+    whereToShop:
+      "Bird- and butterfly-friendly plants from a local nursery; wind spinners and birdbaths from a garden center, Target, or a marketplace like Etsy.",
   },
   connection: {
     title: "Together Spot",
@@ -106,9 +116,11 @@ export const ZONE_CATALOG: Record<
     ideas: [
       "Saucer or platform swing built for two",
       "Wide hammock or hammock chair",
-      "Shared shade structure with a bench for a parent",
+      "A shaded, comfortable sitting area right at the edge of it — real outdoor chairs, not a plank of wood — so you can actually be there with them",
       "A blanket-sized flat patch for a shared picnic spot",
     ],
+    whereToShop:
+      "A saucer swing or wide hammock from a garden center or Target/Walmart, or secondhand on Facebook Marketplace; outdoor chairs and shade structures from Home Depot, Lowe's, or a home-goods store.",
   },
   critters: {
     title: "Critter Corner",
@@ -125,6 +137,8 @@ export const ZONE_CATALOG: Record<
       "A fenced, shallow, kid-safe fish pond",
       "A rabbit hutch with a grass run",
     ],
+    whereToShop:
+      "Coop and hutch kits from Tractor Supply or online; check Facebook Marketplace for secondhand structures, and always check local ordinances before bringing animals home.",
   },
 };
 

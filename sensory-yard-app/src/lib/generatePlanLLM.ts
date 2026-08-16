@@ -12,7 +12,7 @@ const FALLBACK_MODEL = process.env.PLAN_FALLBACK_MODEL || "anthropic/claude-haik
 
 interface LLMPlanShape {
   kidName: string | null;
-  zones: { id: ZoneId; description: string; ideas: string[] }[];
+  zones: { id: ZoneId; description: string; ideas: string[]; whereToShop: string }[];
 }
 
 function validate(parsed: unknown): LLMPlanShape | null {
@@ -29,6 +29,7 @@ function validate(parsed: unknown): LLMPlanShape | null {
     seenIds.add(z.id);
     if (typeof z.description !== "string" || !z.description.trim()) return null;
     if (!Array.isArray(z.ideas) || z.ideas.length < 3 || z.ideas.some((i) => typeof i !== "string")) return null;
+    if (typeof z.whereToShop !== "string" || !z.whereToShop.trim()) return null;
   }
 
   if (p.kidName !== null && typeof p.kidName !== "string") return null;
@@ -38,7 +39,9 @@ function validate(parsed: unknown): LLMPlanShape | null {
 /** PRD §8: banned-term list must be checked programmatically as a second layer, not just relied on in the prompt. */
 function hasBannedContent(plan: LLMPlanShape): boolean {
   if (plan.kidName && findBannedTerm(plan.kidName)) return true;
-  return plan.zones.some((z) => findBannedTerm(z.description) || z.ideas.some((idea) => findBannedTerm(idea)));
+  return plan.zones.some(
+    (z) => findBannedTerm(z.description) || findBannedTerm(z.whereToShop) || z.ideas.some((idea) => findBannedTerm(idea))
+  );
 }
 
 async function attemptModel(model: string, userMessage: string): Promise<LLMPlanShape | null> {
@@ -90,6 +93,7 @@ export async function generatePlanViaLLM(answers: IntakeAnswers): Promise<Genera
       icon: ZONE_CATALOG[z.id].icon,
       description: z.description,
       ideas: z.ideas,
+      whereToShop: z.whereToShop,
     }));
     return { zones, kidName: result.kidName ?? undefined, source: "llm" };
   }
