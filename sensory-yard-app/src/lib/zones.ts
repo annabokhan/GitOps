@@ -29,7 +29,8 @@ export const ZONE_CATALOG: Record<
     icon: "🏃",
     keywords: [
       "climb", "run", "jump", "spin", "swing", "big movement", "cant sit still",
-      "can't sit still", "balance", "bike", "chase", "energy", "bolt", "wired",
+      "can't sit still", "balance", "bike", "scooter", "scoot", "trike", "tricycle",
+      "wheels", "riding", "chase", "energy", "bolt", "wired",
     ],
     description:
       "Big, safe ways to move — built for a kid whose body needs to move to feel settled.",
@@ -38,9 +39,10 @@ export const ZONE_CATALOG: Record<
       "Tunnel to crawl through",
       "Saucer or platform swing",
       "Low climbing structure or log pile",
+      "A smooth hard-surfaced loop — even a modest paved patch, existing patio, or deck — for bikes, scooters, or trikes; a flat loop gets used far more than its size suggests",
     ],
     whereToShop:
-      "Lumber and hardware from Home Depot or Lowe's; secondhand swing sets and climbing structures often turn up on Facebook Marketplace or Craigslist for a fraction of retail price.",
+      "Lumber and hardware from Home Depot or Lowe's; secondhand swing sets, climbing structures, and bikes/scooters often turn up on Facebook Marketplace or Craigslist for a fraction of retail price.",
   },
   texture: {
     title: "Texture Zone",

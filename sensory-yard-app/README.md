@@ -39,7 +39,12 @@ not a native build.
   `src/lib/prompts.ts`) — the prompt otherwise defaults to ordinary
   DIY-budget ideas, and these are meaningfully bigger commitments than
   that default. A mud kitchen was added to the texture zone's idea pool
-  instead of becoming its own zone (`src/lib/zones.ts`). The
+  instead of becoming its own zone (`src/lib/zones.ts`). Movement zone
+  now explicitly covers a smooth hard-surfaced loop for bikes/scooters/
+  trikes, not just climbing/balance equipment, and treats a mentioned
+  patio or deck as a ready-made loop worth reusing — a real parent
+  anecdote (an unplanned deck that became a bike/scooter track) that
+  the prompt was missing entirely before. The
   structured-output schema lives in `src/lib/planSchema.ts`, the
   banned-term list + programmatic
   second-layer check in `src/lib/bannedTerms.ts`, and the
