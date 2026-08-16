@@ -66,6 +66,59 @@ not a native build.
   live key**: this sandbox has no `OPENROUTER_API_KEY`; every request
   here falls through to the mock generator, which has been verified end-
   to-end (see below) — the gateway call itself has not.
+- **Prompt review pass — "guide, don't restrict."** A full re-read of
+  `planPrompt.ts` found several spots that had drifted from calibrating
+  examples into forced substitutions: "reach for tree rounds *rather
+  than* stepping logs," a fixed list of the same four fruit trees and
+  five herbs on every plan, a hard cap of exactly one bigger-ticket
+  idea, and a `whereToShop` instruction that cycled the same six stores
+  every time. Added an explicit meta-instruction near the top of the
+  prompt ("Examples in this prompt are inspiration, not a fixed menu")
+  and reworded each of those spots to present its specifics as a
+  starting range to draw from, not a checklist — the model is now told
+  outright to notice if it's reusing the same idea/plant/store across
+  different families and reach for something more specific instead.
+  Verified with two hand-simulated sample plans (different zips,
+  different handiness answers) that came out with different fruit
+  trees, different movement equipment, and different sourcing rather
+  than the same fixed set both times.
+- **Texture zone widened to cover plant-texture exploration, not just
+  dig/mess materials.** The taxonomy line and mock catalog both leaned
+  entirely on sand/dirt/mud; a review found that a lot of kids
+  (sensory-seeking and not) are just as drawn to wandering through and
+  brushing a hand along a variety of plant textures (fuzzy, wooly,
+  waxy, papery) as they are to digging. The prompt now names both as
+  equally valid ways to fill this zone, and the mock catalog
+  (`zones.ts`) gained a "meandering path of contrasting-texture plants"
+  idea (lamb's ear, wooly thyme, ornamental grasses) plus matching
+  keywords (`wander`, `brush`, `leaves`, `feel`).
+- **Business-plan gap review.** A full pass against the design doc/PRD
+  citations turned up two real gaps, both fixed: (1) the founder's own
+  story explicitly names a kid who'd bolt in an open yard and needed
+  real containment, but nothing told the model to act on it — the
+  Safety section now instructs treating a defined boundary as a real
+  idea when a parent describes an open/unfenced yard together with a
+  bolt-risk kid; (2) `kidName` said "return it exactly as given," which
+  could carry a surname through if one was typed alongside a first name
+  — now explicitly stripped to first-name-only. Also surfaced (and
+  resolved by explicit user decision) a tension the design doc flags
+  but the prompt never addressed: PRD §7's paid Design Review
+  ($1,500–6,000+) needs to stay visibly distinct from the free report,
+  previously protected only by the visual being schematic/not-to-scale.
+  "Don't undersell it" now has a paired instruction: stay generous and
+  specific, but never drift into measured dimensions, installation
+  instructions, or material takeoffs — ideas and direction, not a
+  ready-to-build professional plan.
+- **Banned-term list expanded.** `bannedTerms.ts` originally covered the
+  PRD §3 core list (therapeutic, therapy, OT, intervention, SPD,
+  autism/autistic, ADHD, special needs, diagnosis/diagnosed). Added
+  adjacent clinical/diagnostic-adjacent terms a parent might volunteer
+  that weren't covered: therapist, occupational therapist, sensory
+  processing (without "disorder"), Asperger's, special education,
+  neurodivergent/neurodivergence/neurotypical, "on the spectrum,"
+  developmental delay, IEP, 504 plan, stimming/stim. Checked against
+  the app's own copy (zone catalog, prompts, chips) for false-positive
+  collisions before committing — none found.
 - **Regional climate/water awareness** — a review of an actual sample
   plan found the zip code was collected at intake but never sent to the
   model at all. `buildPlanUserMessage` now includes it, with an explicit

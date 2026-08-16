@@ -66,13 +66,14 @@ export const ZONE_CATALOG: Record<
     icon: "🤚",
     keywords: [
       "texture", "touch", "sand", "dirt", "mud", "sensory bin", "mint", "chives",
-      "soft", "rough", "hands",
+      "soft", "rough", "hands", "wander", "plants", "leaves", "brush", "feel",
+      "different textures",
     ],
     description:
-      "Hands-on materials to touch, dig through, and explore at their own pace.",
+      "Hands-on materials and plants to touch, dig through, wander among, and explore at their own pace.",
     ideas: [
       "Sand or dirt digging pit",
-      "Mint, chives, and lamb's ear planted low in a partly shaded spot",
+      "A meandering path lined with contrasting-texture plants — lamb's ear, wooly thyme groundcover, ornamental grasses — to wander through and brush a hand along, not just a bed off to the side",
       "Rosemary or lavender planted low in the sunnier stretches — tougher and just as touchable",
       "Textured stepping stones",
       "Water table or creek rocks",
@@ -80,12 +81,12 @@ export const ZONE_CATALOG: Record<
     ],
     easyIdeas: [
       "A store-bought sandbox with a lid, filled and ready to go",
-      "A few potted herbs (mint, chives) set at kid height, no digging required",
+      "A row of potted textured plants (lamb's ear, wooly thyme) set along an existing path — no digging or bed to build",
       "Textured stepping stones, simply placed on the ground",
       "A ready-made plastic water table",
     ],
     whereToShop:
-      "Sand, mulch, and stepping stones from Home Depot, Lowe's, or a local landscaping-supply yard; herb starts from a local nursery; a repurposed pallet or old kitchen cart for a mud kitchen is easy to find free or cheap on Facebook Marketplace.",
+      "Sand, mulch, and stepping stones from Home Depot, Lowe's, or a local landscaping-supply yard; lamb's ear, wooly thyme, and other touchable plant starts from a local nursery; a repurposed pallet or old kitchen cart for a mud kitchen is easy to find free or cheap on Facebook Marketplace.",
   },
   calm: {
     title: "Calm Corner",
