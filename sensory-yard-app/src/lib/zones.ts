@@ -10,6 +10,15 @@ import { ZoneId } from "./types";
  * fallback's relevance scoring (lib/mockGenerate.ts); the real LLM path
  * (lib/planPrompt.ts) uses the same fixed ids for its own reasons: the
  * UI (icons, swatches, sketch layout) is keyed to this exact set.
+ *
+ * Default ideas for texture/taste-smell lean on real Bay Area / Northern
+ * California plant knowledge (pomegranate, fig, persimmon, kumquat;
+ * tough Mediterranean herbs — rosemary, thyme, lavender — over
+ * water-needy ones in full sun), not generic ideas that happen to work
+ * anywhere — this product's actual audience is regional (PRD §10), and
+ * this static catalog can't do the per-request zip-code reasoning the
+ * real LLM path does (planPrompt.ts), so it's worth getting the fixed
+ * defaults right for the region that matters.
  */
 export const ZONE_CATALOG: Record<
   ZoneId,
@@ -44,13 +53,14 @@ export const ZONE_CATALOG: Record<
       "Hands-on materials to touch, dig through, and explore at their own pace.",
     ideas: [
       "Sand or dirt digging pit",
-      "Mint, chives, and lamb's ear planted low",
+      "Mint, chives, and lamb's ear planted low in a partly shaded spot",
+      "Rosemary or lavender planted low in the sunnier stretches — tougher and just as touchable",
       "Textured stepping stones",
       "Water table or creek rocks",
       "A simple mud kitchen from a repurposed pallet or old kitchen cart",
     ],
     whereToShop:
-      "Sand, mulch, and stepping stones from Home Depot, Lowe's, or a local landscaping-supply yard; a repurposed pallet or old kitchen cart for a mud kitchen is easy to find free or cheap on Facebook Marketplace.",
+      "Sand, mulch, and stepping stones from Home Depot, Lowe's, or a local landscaping-supply yard; herb starts from a local nursery; a repurposed pallet or old kitchen cart for a mud kitchen is easy to find free or cheap on Facebook Marketplace.",
   },
   calm: {
     title: "Calm Corner",
@@ -79,13 +89,13 @@ export const ZONE_CATALOG: Record<
     description:
       "Low-pressure ways to explore smell and taste — picking, smelling, and tasting on their own terms.",
     ideas: [
-      "Easy-to-grow herbs like mint and basil",
-      "A few cherry tomato or strawberry plants",
-      "A young fruit tree to track over a season",
+      "Tough, sun-loving herbs like rosemary, thyme, or oregano for easy, low-water picking — basil and mint are lovely but want more shade and water",
+      "A pomegranate, fig, persimmon, or kumquat tree — all reliable in a hot, dry summer and something to track ripening over a season",
+      "A few cherry tomato plants if there's a bit of extra water to give them in summer",
       "Raised bed at kid height for easy reach",
     ],
     whereToShop:
-      "Herb and vegetable starts from a local nursery or garden center (ask for what's actually suited to your climate); raised-bed kits from Home Depot, Lowe's, or online.",
+      "Herb and fruit-tree starts from a local nursery (ask specifically for what's suited to a hot, dry summer); raised-bed kits from Home Depot, Lowe's, or online.",
   },
   visual: {
     title: "Watching & Wondering Zone",

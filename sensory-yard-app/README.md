@@ -56,8 +56,18 @@ not a native build.
   model at all. `buildPlanUserMessage` now includes it, with an explicit
   instruction to infer regional climate from it and default to
   drought-tolerant plants/ground covers for an arid zip rather than a
-  thirsty lawn. This leans on the model's own geographic knowledge, not
-  a real climate-zone lookup — a known approximation (design doc §13).
+  thirsty lawn. Since this product's real audience is regional, not
+  nationwide (PRD §10 — Tri-Valley/East Bay lead-gen, not national
+  scaling), a follow-up pass went further for the primary region
+  specifically: the prompt now names real, reliable Bay Area / Northern
+  California plants outright — pomegranate, fig, persimmon, kumquat/
+  Meyer lemon; rosemary, thyme, lavender, sage for sunny spots, with
+  mint/chives called out as better suited to shade — instead of relying
+  on generic inference there. Everywhere else still falls back to
+  general climate inference from the model's own geographic knowledge —
+  a known approximation, not a real lookup (design doc §13). The mock
+  fallback's static catalog (`zones.ts`) carries the same regional
+  plant defaults, since it can't reason per-request at all.
 - **The parent's own experience** — same review found it only showed up
   if the calm zone happened to get picked, and even then as a single
   "add a bench" line. The prompt now has a standalone requirement
