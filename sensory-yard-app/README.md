@@ -20,15 +20,26 @@ not a native build.
 
 - **Chat intake, review, usage limiting, report rendering** — real,
   end-to-end.
-- **Plan generation** (`src/lib/mockGenerate.ts`) — a deterministic
-  keyword-matching function standing in for the real LLM gateway call
-  (design doc §5.2 / PRD §8). Swap its internals for the actual gateway
-  call once a provider is chosen; the API route (`src/app/api/generate`)
-  doesn't need to change.
-- **Name extraction** (`extractName` in the same file) — a conservative
-  regex heuristic standing in for the LLM extraction pass described in
-  design doc §10. Try typing "...named Emma..." into any chat answer to
-  see it personalize the report title.
+- **Plan generation** — real, via `src/lib/generatePlanLLM.ts`, not
+  mocked (design doc §5.2 / PRD §8). The system prompt lives in
+  `src/lib/planPrompt.ts` (edit that file to iterate on it — nothing
+  else needs to change), the structured-output schema in
+  `src/lib/planSchema.ts`, the banned-term list + programmatic
+  second-layer check in `src/lib/bannedTerms.ts`, and the
+  provider-agnostic OpenRouter call in `src/lib/llmGateway.ts`. Chain on
+  every request: primary model → fallback model → `src/lib/mockGenerate.ts`
+  (the original deterministic keyword-matcher, now the last-resort
+  fallback — same role the SVG plays for the yard image) if both models
+  are unavailable or return invalid/banned output. **Untested against a
+  live key**: this sandbox has no `OPENROUTER_API_KEY`; every request
+  here falls through to the mock generator, which has been verified end-
+  to-end (see below) — the gateway call itself has not.
+- **Name extraction** — the LLM's own `kidName` field is used when the
+  real plan-generation call succeeds; `extractName` in
+  `src/lib/mockGenerate.ts` (a conservative regex heuristic) only runs
+  when the LLM path falls all the way back to the mock. Try typing
+  "...named Emma..." into any chat answer to see it personalize the
+  report title either way.
 - **Persistence** (`src/lib/store.ts`) — in-memory, pinned to `globalThis`
   so it survives Turbopack's per-route module instances in dev. Resets on
   server restart and won't work across multiple server instances — fine
@@ -58,6 +69,16 @@ not a native build.
     match exactly (a `Math.random()`-based version throws a hydration
     mismatch error).
 
+## Config (plan generation)
+
+| Env var | Default | Meaning |
+|---|---|---|
+| `OPENROUTER_API_KEY` | unset | OpenRouter API key. Unset = every report silently uses the deterministic mock generator — nothing breaks, no error surfaces to the parent. |
+| `PLAN_MODEL` | `google/gemini-2.5-flash-lite` | Primary model, OpenRouter slug |
+| `PLAN_FALLBACK_MODEL` | `anthropic/claude-haiku-4.5` | Tried only if the primary call fails or returns invalid/banned output |
+
+Get a key at [openrouter.ai](https://openrouter.ai). Treat the model slugs above as a reasonable starting point, not a locked-in choice — OpenRouter's catalog and pricing shift; check current availability before launch.
+
 ## Config (design doc §9 — usage limits)
 
 | Env var | Default | Meaning |
@@ -83,3 +104,8 @@ Get a key at [fal.ai](https://fal.ai). Flux Schnell is priced per-image on their
   see design doc §13.
 - Image generation (`FAL_KEY`) has not been exercised against a live API
   — see the "Yard visual" note above.
+- Plan generation (`OPENROUTER_API_KEY`) has not been exercised against a
+  live API either — see the "Plan generation" note above. Both external
+  calls have only been verified via their no-key fallback path.
+- The plan call and the image call run sequentially, not in parallel —
+  see design doc §13 for the worst-case-latency tradeoff this implies.

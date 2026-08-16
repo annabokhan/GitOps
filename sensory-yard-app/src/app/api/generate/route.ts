@@ -1,18 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { checkUsage, recordUsage, saveReport } from "@/lib/store";
-import { generatePlan, extractName } from "@/lib/mockGenerate";
+import { generatePlanViaLLM } from "@/lib/generatePlanLLM";
 import { generateYardImage } from "@/lib/imageGen";
 import { buildYardImagePrompt } from "@/lib/imagePrompt";
 import { IntakeAnswers } from "@/lib/types";
 
 /**
  * Design doc §5.3/§9: usage check runs before generation fires, so a
- * blocked request never pays for a wasted LLM call. In this mock the
- * "extraction + generation" pass is a single fast local call, so the
- * check and the generation happen in one request; a real build would
- * likely split a fast pre-check from the (slower) gateway call so the
- * /generating screen only renders once the check has already passed.
+ * blocked request never pays for a wasted LLM call. The plan call
+ * (generatePlanViaLLM) and the image call (generateYardImage) are two
+ * sequential external calls, each with its own timeout and its own
+ * fallback — a real build should consider whether that combined
+ * worst-case wait is still acceptable against the GeneratingAnimation's
+ * hard-timeout assumption (§5.3); see design doc §13.
  */
 export async function POST(req: NextRequest) {
   const answers = (await req.json()) as IntakeAnswers;
@@ -25,8 +26,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ blocked: true, resetAt: usage.resetAt });
   }
 
-  const zones = generatePlan(answers);
-  const kidName = extractName(answers);
+  const { zones, kidName } = await generatePlanViaLLM(answers);
   const id = randomUUID();
 
   // Best-effort — a failed/skipped image never fails the report or the

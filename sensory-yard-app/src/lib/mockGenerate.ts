@@ -2,11 +2,11 @@ import { ZONE_CATALOG } from "./zones";
 import { IntakeAnswers, Zone, ZoneId } from "./types";
 
 /**
- * PLACEHOLDER for the real LLM gateway call (PRD §8 / design doc §5.2).
- * Deterministic keyword scoring stands in for the extraction+generation
- * pass so the app is fully click-through-able before a gateway/provider
- * is chosen. Swap this function's internals for the real gateway call —
- * callers (the /api/generate route) don't need to change.
+ * Deterministic keyword-matching fallback — used by generatePlanLLM.ts
+ * only when the real gateway call (primary and fallback model, both via
+ * lib/llmGateway.ts) fails, times out, or returns invalid/banned-term
+ * output. Same role SVG plays for the yard image: never let a report
+ * fail outright just because the LLM path had a bad moment.
  */
 export function generatePlan(answers: IntakeAnswers): Zone[] {
   const combined = `${answers.gravitates} ${answers.challenges} ${answers.space}`.toLowerCase();
@@ -37,11 +37,11 @@ export function generatePlan(answers: IntakeAnswers): Zone[] {
 }
 
 /**
- * Heuristic name extraction — a stand-in for the real extraction pass
- * (design doc §10) that would pull a volunteered first name out of
- * free text using the LLM, not regex. Conservative on purpose: only
- * fires on explicit "named X" / "name is X" phrasing to avoid false
- * positives from ordinary capitalized words.
+ * Regex name extraction — used as the fallback path's name extractor
+ * (when the LLM call itself fails, so its more reliable `kidName` field
+ * from planPrompt.ts never runs). Conservative on purpose: only fires on
+ * explicit "named X" / "name is X" phrasing to avoid false positives
+ * from ordinary capitalized words.
  */
 export function extractName(answers: IntakeAnswers): string | undefined {
   const combined = `${answers.gravitates} ${answers.challenges} ${answers.space}`;
