@@ -6,7 +6,7 @@ export default function LandingPage() {
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-5 pb-16 pt-8">
       <h1 className="text-3xl font-bold leading-tight text-bark sm:text-4xl">
-        A backyard your kid can actually settle in.
+        A backyard your kids can actually settle into.
       </h1>
 
       <p className="mt-4 text-lg font-medium italic text-leaf-dark">

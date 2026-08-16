@@ -3,7 +3,7 @@ import { yardLayout, SKETCH_VIEWBOX, VIEW_W, VIEW_H, HOUSE_H } from "@/lib/layou
 import { ZONE_SWATCH } from "@/lib/zones";
 import { blobPath, wobblyRectPoints, smoothClosedPath, Point } from "@/lib/blob";
 import { hashSeed, makeRandom } from "@/lib/seededRandom";
-import { Tree, Bench, Flower, SproutTick, Pebble, MotionSwoosh, GrassTuft, CloudPuff, TogetherPair } from "./sketch/doodles";
+import { Tree, Bench, Flower, SproutTick, Pebble, MotionSwoosh, GrassTuft, CloudPuff, TogetherPair, MiniPond, PawPrint } from "./sketch/doodles";
 
 const INK = "#3f362c";
 
@@ -184,6 +184,23 @@ function zoneDecorations(zoneId: ZoneId, rand: () => number, cx: number, cy: num
         <>
           <Bench x={bx - 9} y={by} w={18} />
           <TogetherPair x={px} y={py} />
+        </>
+      );
+    }
+    case "critters": {
+      const [pondX, pondY] = within(cx, cy, rx, ry, -0.6, 0.45);
+      const pondR = Math.min(rx, ry) * 0.26;
+      const pawTrail: Point[] = [
+        within(cx, cy, rx, ry, -0.05, -0.3),
+        within(cx, cy, rx, ry, 0.25, -0.12),
+        within(cx, cy, rx, ry, 0.55, 0.06),
+      ];
+      return (
+        <>
+          <MiniPond x={pondX} y={pondY} r={pondR} />
+          {pawTrail.map(([px, py], i) => (
+            <PawPrint key={i} x={px} y={py} scale={0.85} />
+          ))}
         </>
       );
     }

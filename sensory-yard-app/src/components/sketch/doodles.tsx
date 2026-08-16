@@ -82,6 +82,21 @@ export function TogetherPair({ x, y }: { x: number; y: number }) {
   );
 }
 
+export function MiniPond({ x, y, r = 8 }: { x: number; y: number; r?: number }) {
+  return <ellipse cx={x} cy={y} rx={r} ry={r * 0.62} fill="#a9c9d6" stroke="#3f362c" strokeWidth={1} opacity={0.85} />;
+}
+
+export function PawPrint({ x, y, scale = 1 }: { x: number; y: number; scale?: number }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${scale})`} fill="#8a6a52" opacity={0.75}>
+      <circle cx={0} cy={2} r={2.2} />
+      <circle cx={-3} cy={-1.5} r={1.2} />
+      <circle cx={0} cy={-2.6} r={1.2} />
+      <circle cx={3} cy={-1.5} r={1.2} />
+    </g>
+  );
+}
+
 export function CloudPuff({ x, y, scale = 1 }: { x: number; y: number; scale?: number }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`} opacity={0.5}>

@@ -8,6 +8,7 @@ import ProgressDots from "@/components/chat/ProgressDots";
 import PrimaryButton from "@/components/PrimaryButton";
 import { CHAT_PROMPTS } from "@/lib/prompts";
 import { IntakeAnswers } from "@/lib/types";
+import { parseAges } from "@/lib/ages";
 
 const TOTAL_STEPS = 1 + CHAT_PROMPTS.length; // quick facts + 3 open prompts (review isn't counted in dots)
 
@@ -23,7 +24,7 @@ export default function IntakePage() {
   const prompt = step >= 1 && step <= CHAT_PROMPTS.length ? CHAT_PROMPTS[step - 1] : null;
 
   const canAdvanceFacts = useMemo(
-    () => answers.age.trim() !== "" && Number(answers.age) >= 0 && /^\d{5}$/.test(answers.zip.trim()),
+    () => parseAges(answers.age) !== null && /^\d{5}$/.test(answers.zip.trim()),
     [answers.age, answers.zip]
   );
 
@@ -70,21 +71,21 @@ export default function IntakePage() {
       {step === 0 && (
         <div className="flex flex-col gap-5">
           <ChatBubble from="assistant">
-            First, a couple of quick facts — how old is your kid, and what&rsquo;s your zip code?
+            First, a couple of quick facts — how old is your kid (or kids), and what&rsquo;s your zip code?
           </ChatBubble>
 
           <div className="flex flex-col gap-4 rounded-2xl border border-line bg-cream p-4">
             <label className="flex flex-col gap-1">
-              <span className="text-sm font-semibold text-bark">Kid&rsquo;s age</span>
+              <span className="text-sm font-semibold text-bark">Kid&rsquo;s age(s)</span>
               <input
-                type="number"
+                type="text"
                 inputMode="numeric"
-                min={0}
-                placeholder="Any age welcome"
+                placeholder="e.g. 6, or 6 and 9 if more than one"
                 value={answers.age}
                 onChange={(e) => updateAnswer("age", e.target.value)}
                 className="min-h-12 rounded-xl border border-line bg-white px-4 text-base text-bark"
               />
+              <span className="text-xs text-bark-soft">Planning for more than one kid? Separate ages with a comma.</span>
             </label>
             <label className="flex flex-col gap-1">
               <span className="text-sm font-semibold text-bark">Zip code</span>
@@ -141,7 +142,7 @@ export default function IntakePage() {
             Here&rsquo;s what we&rsquo;ve got. Anything you&rsquo;d like to change?
           </ChatBubble>
 
-          <ReviewRow label="Kid's age" value={answers.age || "—"} onEdit={() => setStep(0)} />
+          <ReviewRow label="Kid's age(s)" value={answers.age || "—"} onEdit={() => setStep(0)} />
           <ReviewRow label="Zip code" value={answers.zip || "—"} onEdit={() => setStep(0)} />
           {CHAT_PROMPTS.map((p, i) => (
             <ReviewRow

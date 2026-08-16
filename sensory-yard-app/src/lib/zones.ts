@@ -45,6 +45,7 @@ export const ZONE_CATALOG: Record<
       "Mint, chives, and lamb's ear planted low",
       "Textured stepping stones",
       "Water table or creek rocks",
+      "A simple mud kitchen from a repurposed pallet or old kitchen cart",
     ],
   },
   calm: {
@@ -109,6 +110,22 @@ export const ZONE_CATALOG: Record<
       "A blanket-sized flat patch for a shared picnic spot",
     ],
   },
+  critters: {
+    title: "Critter Corner",
+    icon: "🐾",
+    keywords: [
+      "chicken", "chickens", "coop", "fish pond", "pond", "rabbit", "rabbits",
+      "duck", "ducks", "critter", "critters", "pet", "pets", "animals",
+    ],
+    description:
+      "A small-animal corner for a family ready to take on the ongoing care that comes with it — start smaller if you're not sure yet.",
+    ideas: [
+      "A simple bird feeder station, if you'd rather start smaller",
+      "A small backyard chicken coop (check local rules first)",
+      "A fenced, shallow, kid-safe fish pond",
+      "A rabbit hutch with a grass run",
+    ],
+  },
 };
 
 /** Pastel fills for the yard sketch (components/YardSketch.tsx) — kept off the main palette so zones stay visually distinct without competing with CTAs. */
@@ -119,4 +136,5 @@ export const ZONE_SWATCH: Record<ZoneId, string> = {
   "taste-smell": "#eef0d2",
   visual: "#ecdfea",
   connection: "#f2ddc9",
+  critters: "#dde8e2",
 };

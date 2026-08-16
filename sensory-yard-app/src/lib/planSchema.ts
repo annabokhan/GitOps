@@ -24,7 +24,7 @@ export const PLAN_JSON_SCHEMA = {
           properties: {
             id: {
               type: "string",
-              enum: ["movement", "texture", "calm", "taste-smell", "visual", "connection"],
+              enum: ["movement", "texture", "calm", "taste-smell", "visual", "connection", "critters"],
             },
             description: { type: "string" },
             ideas: {

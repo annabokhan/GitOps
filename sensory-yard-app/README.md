@@ -28,11 +28,20 @@ not a native build.
   means) before the mechanical rules — a first draft that skipped
   straight to taxonomy/schema/safety read as generic, never used the
   age field, and never asked about the parent's own experience of the
-  space. Taxonomy is 6 zone types now, not 5 — added `connection` (a
-  shared spot for two kids, or a kid and a parent, to be at ease
-  together) after re-reading the mission doc's own saucer-swing scene,
-  which the original five didn't cover. The structured-output schema
-  lives in `src/lib/planSchema.ts`, the banned-term list + programmatic
+  space. Taxonomy is 7 zone types now, not 5 — `connection` (a shared
+  spot for two kids, or a kid and a parent, to be at ease together) and
+  `critters` (a small-animal corner — chickens, a pond, rabbits — for a
+  family ready for real ongoing care) were both added after re-reading
+  the mission doc more closely. `critters`, and "bigger-ticket" ideas
+  like a tree house within other zones, are explicitly gated in the
+  prompt behind a genuine signal in the parent's own words (or the
+  "open to a bigger project" suggestion chip on the space prompt,
+  `src/lib/prompts.ts`) — the prompt otherwise defaults to ordinary
+  DIY-budget ideas, and these are meaningfully bigger commitments than
+  that default. A mud kitchen was added to the texture zone's idea pool
+  instead of becoming its own zone (`src/lib/zones.ts`). The
+  structured-output schema lives in `src/lib/planSchema.ts`, the
+  banned-term list + programmatic
   second-layer check in `src/lib/bannedTerms.ts`, and the
   provider-agnostic OpenRouter call in `src/lib/llmGateway.ts`. Chain on
   every request: primary model → fallback model → `src/lib/mockGenerate.ts`
@@ -42,6 +51,14 @@ not a native build.
   live key**: this sandbox has no `OPENROUTER_API_KEY`; every request
   here falls through to the mock generator, which has been verified end-
   to-end (see below) — the gateway call itself has not.
+- **Multiple kids** — the age quick-fact (`src/lib/ages.ts`'s `parseAges`)
+  accepts one age or several comma-separated, since the connection zone
+  and the mission doc it's grounded in are explicitly about siblings
+  with different needs. The plan prompt has an explicit multi-kid
+  instruction (build the connection zone around the actual siblings,
+  keep other zones working across the given ages, combine multiple
+  volunteered names in the title). Not a repeatable "add another kid"
+  UI — kept to a text field to avoid adding an intake step.
 - **Name extraction** — the LLM's own `kidName` field is used when the
   real plan-generation call succeeds; `extractName` in
   `src/lib/mockGenerate.ts` (a conservative regex heuristic) only runs

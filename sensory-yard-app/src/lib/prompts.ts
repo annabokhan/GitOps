@@ -9,7 +9,8 @@ export interface ChatPrompt {
 export const CHAT_PROMPTS: ChatPrompt[] = [
   {
     key: "gravitates",
-    assistant: "Tell us what your kid's into outdoors — what do they gravitate toward?",
+    assistant:
+      "Tell us what your kid's into outdoors — what do they gravitate toward? If you're planning for more than one kid, tell us about each of them here.",
     placeholder: "e.g. climbs everything, loves digging in the dirt, can't sit still...",
     chips: ["seeks big movement", "loves textures", "curious about plants", "watches everything closely"],
   },
@@ -23,6 +24,12 @@ export const CHAT_PROMPTS: ChatPrompt[] = [
     key: "space",
     assistant: "Tell us about your outdoor space — size, sun or shade, what's already out there.",
     placeholder: "e.g. small fenced backyard, mostly shady, just grass and a patio right now...",
-    chips: ["small yard", "mostly shade", "already have a garden bed", "open, no fence"],
+    chips: [
+      "small yard",
+      "mostly shade",
+      "already have a garden bed",
+      "open, no fence",
+      "open to a bigger project (coop, pond, tree house)",
+    ],
   },
 ];
