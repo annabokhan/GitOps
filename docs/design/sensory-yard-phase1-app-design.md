@@ -234,7 +234,7 @@ This is the deliverable the parent actually came for, and the thing most likely 
 - PDF export: PRD §7 lists PDF export as a **Pro-tier (Phase 3) benefit**, so Phase 1's "Download as PDF" must be a plain client-side print-to-PDF (browser print stylesheet) — free and universal on both platforms — not a backend PDF service. That distinction matters so Phase 1 doesn't accidentally build paid-tier infrastructure early (PRD §10).
 - The "notify me about the future shared space" block (PRD §2) sits below the plan itself, not above it — it's a soft ask after value has been delivered, not a gate in front of it, and it must post to a distinct list from any general marketing capture per PRD §2's explicit requirement.
 - No affiliate links, no product photos with buy buttons, no "book a call" CTA anywhere on this screen — PRD §10 is explicit that Phase 1 ships zero monetization surface, so the report's only CTAs are share, PDF, and the email capture.
-- Title personalization (using a first name if one was volunteered in the chat) is an **open decision, not a default** — see §10.
+- Title personalization: if a first name was volunteered in the chat, use it in the report title ("Emma's Sensory Yard Plan") — confirmed not to be treated as PII for this product; see §10.
 
 ### 5.5 About (`/about`)
 
@@ -323,7 +323,7 @@ Free text is fundamentally less controllable than checkboxes: a parent can type 
 - **Volunteered diagnoses.** A parent may type "he's autistic" or similar into an open prompt even though nothing asks for it. The app must not reject or flag this to the parent (that would be worse than the problem — it would make the tool feel clinical/judgmental, exactly what PRD §3 is designed to avoid), but the **extraction pass** (§5.2) that turns free text into the plain-language tag schema should be instructed to translate any such volunteered clinical language into the existing behavioral vocabulary (e.g., a mention of a diagnosis alongside "meltdowns in crowds" extracts as the existing crowd-tolerance tag, not as a stored diagnostic label) and must never let a diagnostic term pass through into the generation prompt or the rendered report, reusing the same banned-term check already required by PRD §8.
 - **Volunteered real names.** A parent may type their kid's name into a free-text answer ("Emma loves..."). Recommend the extraction pass strip likely proper names from anything that gets persisted or logged (e.g., in the Phase 0–1 plan-quality review tooling PRD §8 calls for), consistent with source-spec's "no child's real name" intent for stored data.
 
-**Open decision, not a default (flagged again in §11):** whether the *rendered report itself* is allowed to use a first name if one was volunteered (e.g., "Emma's Sensory Yard Plan" reads warmer and is more shareable than "Your Kid's Sensory Yard Plan"). This is a genuine product/privacy tradeoff — PRD §5 says the app doesn't collect a real name as a field, but doesn't anticipate one arriving inside free text. Recommendation if forced to pick a default: allow ephemeral, display-only use (rendered on that one report, never written to any structured field, analytics event, or list) and treat it as ordinary UI personalization rather than data collection — but this should get explicit product sign-off before build, since it sits close to a rule the PRD was deliberate about.
+**Decided:** the rendered report may use a first name if one was volunteered in the chat (e.g., "Emma's Sensory Yard Plan") — confirmed a first name alone is not treated as PII for this product. Still handled as ephemeral, display-only personalization: rendered on that one report, never written to a structured profile field, analytics event, or marketing list, and never required — a plan with no name volunteered just uses "your kid's plan." PRD §5's "no child's real name" rule is about the app not *soliciting* a name as an intake field, which this preserves; it doesn't forbid using one a parent offers unprompted.
 
 ---
 
@@ -360,7 +360,6 @@ No PII beyond what the intake already collects for its stated purpose (zip code,
 ## 13. Open items for build kickoff
 
 - **Real usage-limit numbers.** §9's "3 per 7 days" (anon_id) and "10–15 per day" (IP) are placeholders — need sign-off from whoever owns the LLM budget once Phase 0 per-generation cost (extraction + generation, blended across providers) is actually known.
-- **Report personalization with a volunteered name** (§10) — needs explicit product sign-off before build; default recommendation is ephemeral display-only use, never stored.
 - **Extraction-pass model choice** — should be a small/cheap model on the same gateway (PRD §8), separate config value from the main generation model; needs to be picked alongside the primary/fallback generation models.
 - **Bot-protection tool choice** (§9) — e.g., Cloudflare Turnstile vs. an alternative; a build-time decision, not blocking design.
 - Final palette/type choices need one round of visual design (this doc specifies direction and constraints, not final hex values/typeface).

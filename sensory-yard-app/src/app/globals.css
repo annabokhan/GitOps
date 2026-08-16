@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+:root {
+  --color-sand: #faf5ec;
+  --color-cream: #fffdf8;
+  --color-bark: #3f362c;
+  --color-bark-soft: #6b6055;
+  --color-sage: #94a894;
+  --color-sage-soft: #e4ebe1;
+  --color-leaf: #4f7a4a;
+  --color-leaf-dark: #3d5f39;
+  --color-marigold: #d99a34;
+  --color-line: #e7ddcd;
+}
+
+@theme inline {
+  --color-sand: var(--color-sand);
+  --color-cream: var(--color-cream);
+  --color-bark: var(--color-bark);
+  --color-bark-soft: var(--color-bark-soft);
+  --color-sage: var(--color-sage);
+  --color-sage-soft: var(--color-sage-soft);
+  --color-leaf: var(--color-leaf);
+  --color-leaf-dark: var(--color-leaf-dark);
+  --color-marigold: var(--color-marigold);
+  --color-line: var(--color-line);
+  --font-sans: var(--font-body);
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background: var(--color-sand);
+  color: var(--color-bark);
+  min-height: 100%;
+}
+
+/* print stylesheet for the report's "Download as PDF" (design doc §5.4 — client-side print, no backend PDF service) */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+}
