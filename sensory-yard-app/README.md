@@ -209,6 +209,30 @@ not a native build.
     `Math.random()` — required so server-rendered and client-hydrated SVG
     match exactly (a `Math.random()`-based version throws a hydration
     mismatch error).
+- **"Add to Home Screen" (PWA)** — real, via Next.js's file-convention
+  metadata routes (`src/app/manifest.ts`, `src/app/icon.png`,
+  `src/app/apple-icon.png`, `public/icon-192.png`, `public/icon-512.png`,
+  `public/icon-maskable-512.png`) — this is design doc §2's whole reason
+  for choosing a responsive web app over a native one: a parent gets the
+  site instantly from an ad click with zero install friction, and can
+  optionally pin a home-screen shortcut with its own icon and splash
+  behavior (`display: "standalone"`) if they come back. Icons are a
+  simple leaf mark (matching the header's 🌿) on the brand leaf-green,
+  generated at build time rather than hand-drawn — a first pass, not a
+  final brand asset (design doc §13 already flags palette/type as not
+  final). `apple-icon.png`/`icon.png` sit directly in `src/app/` (Next's
+  auto-detected file convention — no code needed, it wires the `<head>`
+  tags itself); the manifest's `icons` array points at the `public/`
+  copies since manifest icon URLs need to be static. `layout.tsx` also
+  sets `appleWebApp` metadata (title, status bar style) so the home-screen
+  launch reads as "Sensory Yard," not a generic Safari tab. Verified via
+  a real build + server: `/manifest.webmanifest` serves valid JSON, all
+  icon routes return `200 image/png`, and the expected `<link>`/`<meta>`
+  tags appear in the rendered `<head>`. The legacy `favicon.ico` (Next's
+  default, not brand-matched) is left in place as the old-browser
+  fallback only — no ImageMagick available in this sandbox to regenerate
+  it as a proper `.ico`; modern browsers use `icon.png` instead, so this
+  is cosmetic, not functional.
 
 ## Config (plan generation)
 
@@ -238,7 +262,6 @@ Get a key at [fal.ai](https://fal.ai). Flux Schnell is priced per-image on their
 
 ## Known gaps vs. the design doc
 
-- No PWA manifest/icons yet (design doc §2).
 - No bot/abuse protection on intake submit (design doc §9 recommends
   Cloudflare Turnstile or similar).
 - Visual design (palette, type) is a first pass, not a final brand pass —

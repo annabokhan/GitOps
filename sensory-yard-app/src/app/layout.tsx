@@ -14,6 +14,10 @@ export const metadata: Metadata = {
   title: "Sensory Yard — a backyard your kid can settle in",
   description:
     "A free, personalized backyard sensory play plan for your kid — built by a mom who needed this too.",
+  appleWebApp: {
+    title: "Sensory Yard",
+    statusBarStyle: "default",
+  },
 };
 
 export const viewport: Viewport = {
