@@ -23,8 +23,16 @@ not a native build.
 - **Plan generation** — real, via `src/lib/generatePlanLLM.ts`, not
   mocked (design doc §5.2 / PRD §8). The system prompt lives in
   `src/lib/planPrompt.ts` (edit that file to iterate on it — nothing
-  else needs to change), the structured-output schema in
-  `src/lib/planSchema.ts`, the banned-term list + programmatic
+  else needs to change) and opens with the product's actual mission
+  (why it exists, what "regulation, curiosity, connection, and rest"
+  means) before the mechanical rules — a first draft that skipped
+  straight to taxonomy/schema/safety read as generic, never used the
+  age field, and never asked about the parent's own experience of the
+  space. Taxonomy is 6 zone types now, not 5 — added `connection` (a
+  shared spot for two kids, or a kid and a parent, to be at ease
+  together) after re-reading the mission doc's own saucer-swing scene,
+  which the original five didn't cover. The structured-output schema
+  lives in `src/lib/planSchema.ts`, the banned-term list + programmatic
   second-layer check in `src/lib/bannedTerms.ts`, and the
   provider-agnostic OpenRouter call in `src/lib/llmGateway.ts`. Chain on
   every request: primary model → fallback model → `src/lib/mockGenerate.ts`

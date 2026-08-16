@@ -3,7 +3,7 @@ import { yardLayout, SKETCH_VIEWBOX, VIEW_W, VIEW_H, HOUSE_H } from "@/lib/layou
 import { ZONE_SWATCH } from "@/lib/zones";
 import { blobPath, wobblyRectPoints, smoothClosedPath, Point } from "@/lib/blob";
 import { hashSeed, makeRandom } from "@/lib/seededRandom";
-import { Tree, Bench, Flower, SproutTick, Pebble, MotionSwoosh, GrassTuft, CloudPuff } from "./sketch/doodles";
+import { Tree, Bench, Flower, SproutTick, Pebble, MotionSwoosh, GrassTuft, CloudPuff, TogetherPair } from "./sketch/doodles";
 
 const INK = "#3f362c";
 
@@ -174,6 +174,16 @@ function zoneDecorations(zoneId: ZoneId, rand: () => number, cx: number, cy: num
             const [fx, fy] = within(cx, cy, rx, ry, -0.5 + i * 0.5, 0.5 + rand() * 0.12);
             return <Flower key={i} x={fx} y={fy} hue={hues[i % hues.length]} />;
           })}
+        </>
+      );
+    }
+    case "connection": {
+      const [bx, by] = within(cx, cy, rx, ry, 0, 0.5);
+      const [px, py] = within(cx, cy, rx, ry, 0, -0.45);
+      return (
+        <>
+          <Bench x={bx - 9} y={by} w={18} />
+          <TogetherPair x={px} y={py} />
         </>
       );
     }

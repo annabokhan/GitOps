@@ -1,4 +1,4 @@
-export type ZoneId = "movement" | "texture" | "calm" | "taste-smell" | "visual";
+export type ZoneId = "movement" | "texture" | "calm" | "taste-smell" | "visual" | "connection";
 
 export interface Zone {
   id: ZoneId;

@@ -22,7 +22,7 @@ export function generatePlan(answers: IntakeAnswers): Zone[] {
     (a, b) => scores[b] - scores[a]
   );
 
-  const chosen = ranked.filter((id) => scores[id] > 0).slice(0, 4);
+  const chosen = ranked.filter((id) => scores[id] > 0).slice(0, 5);
   if (chosen.length < 3) {
     for (const id of ranked) {
       if (!chosen.includes(id)) chosen.push(id);

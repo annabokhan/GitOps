@@ -17,14 +17,14 @@ export const PLAN_JSON_SCHEMA = {
       zones: {
         type: "array",
         minItems: 3,
-        maxItems: 4,
+        maxItems: 5,
         items: {
           type: "object",
           additionalProperties: false,
           properties: {
             id: {
               type: "string",
-              enum: ["movement", "texture", "calm", "taste-smell", "visual"],
+              enum: ["movement", "texture", "calm", "taste-smell", "visual", "connection"],
             },
             description: { type: "string" },
             ideas: {

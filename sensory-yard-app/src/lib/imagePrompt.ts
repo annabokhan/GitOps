@@ -7,9 +7,15 @@ function positionPhrase(index: number, total: number): string {
     if (index === 0) return "along the top, spanning most of the width, just below the house";
     return index === 1 ? "in the bottom-left corner" : "in the bottom-right corner";
   }
-  // 4 — matches the 2x2 grid in lib/layout.ts
-  const corners = ["top-left", "top-right", "bottom-left", "bottom-right"];
-  return `in the ${corners[index]} of the yard`;
+  if (total === 4) {
+    // matches the 2x2 grid in lib/layout.ts
+    const corners = ["top-left", "top-right", "bottom-left", "bottom-right"];
+    return `in the ${corners[index]} of the yard`;
+  }
+  // 5 — matches the top-strip + 2x2-grid layout in lib/layout.ts
+  if (index === 0) return "along the top, spanning most of the width, just below the house";
+  const rest = ["in the middle-left area", "in the middle-right area", "in the bottom-left corner", "in the bottom-right corner"];
+  return rest[index - 1];
 }
 
 /**

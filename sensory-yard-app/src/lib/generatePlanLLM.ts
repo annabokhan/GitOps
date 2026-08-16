@@ -18,7 +18,7 @@ interface LLMPlanShape {
 function validate(parsed: unknown): LLMPlanShape | null {
   if (!parsed || typeof parsed !== "object") return null;
   const p = parsed as Record<string, unknown>;
-  if (!Array.isArray(p.zones) || p.zones.length < 3 || p.zones.length > 4) return null;
+  if (!Array.isArray(p.zones) || p.zones.length < 3 || p.zones.length > 5) return null;
 
   const seenIds = new Set<string>();
   for (const raw of p.zones) {

@@ -51,13 +51,30 @@ export function yardLayout(zoneCount: number): CellRect[] {
     ];
   }
 
-  // 4 zones — 2x2 grid (mockGenerate never produces more than 4)
+  if (zoneCount === 4) {
+    // 2x2 grid
+    const cw = (innerW - GAP) / 2;
+    const ch = (innerH - GAP) / 2;
+    return [
+      { x: innerX, y: innerY, w: cw, h: ch },
+      { x: innerX + cw + GAP, y: innerY, w: cw, h: ch },
+      { x: innerX, y: innerY + ch + GAP, w: cw, h: ch },
+      { x: innerX + cw + GAP, y: innerY + ch + GAP, w: cw, h: ch },
+    ];
+  }
+
+  // 5 zones (the taxonomy's max — see zones.ts) — top full-width strip, 2x2 grid below
+  const topH = innerH * 0.34;
+  const botH = innerH - topH - GAP;
   const cw = (innerW - GAP) / 2;
-  const ch = (innerH - GAP) / 2;
+  const ch = (botH - GAP) / 2;
+  const row1Y = innerY + topH + GAP;
+  const row2Y = row1Y + ch + GAP;
   return [
-    { x: innerX, y: innerY, w: cw, h: ch },
-    { x: innerX + cw + GAP, y: innerY, w: cw, h: ch },
-    { x: innerX, y: innerY + ch + GAP, w: cw, h: ch },
-    { x: innerX + cw + GAP, y: innerY + ch + GAP, w: cw, h: ch },
+    { x: innerX, y: innerY, w: innerW, h: topH },
+    { x: innerX, y: row1Y, w: cw, h: ch },
+    { x: innerX + cw + GAP, y: row1Y, w: cw, h: ch },
+    { x: innerX, y: row2Y, w: cw, h: ch },
+    { x: innerX + cw + GAP, y: row2Y, w: cw, h: ch },
   ];
 }

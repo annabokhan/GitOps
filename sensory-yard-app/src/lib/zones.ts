@@ -1,9 +1,15 @@
 import { ZoneId } from "./types";
 
 /**
- * Zone taxonomy per source-spec §4.1. Keywords drive the mock
- * generator's relevance scoring (lib/mockGenerate.ts) — a stand-in
- * for the real LLM extraction+generation pass (PRD §8).
+ * Zone taxonomy. Originally guessed from the PRD's references to a
+ * "source-spec §4.1" this app never had the actual text of — "connection"
+ * was added after realizing the mission doc's own saucer-swing scene
+ * (two very different kids at ease in the same spot at once) and its
+ * closing line — "regulation, curiosity, connection, and rest" — named a
+ * zone type the original five didn't cover. Keywords drive the mock
+ * fallback's relevance scoring (lib/mockGenerate.ts); the real LLM path
+ * (lib/planPrompt.ts) uses the same fixed ids for its own reasons: the
+ * UI (icons, swatches, sketch layout) is keyed to this exact set.
  */
 export const ZONE_CATALOG: Record<
   ZoneId,
@@ -87,6 +93,22 @@ export const ZONE_CATALOG: Record<
       "Colorful, varied plantings at eye level",
     ],
   },
+  connection: {
+    title: "Together Spot",
+    icon: "🤝",
+    keywords: [
+      "together", "swing", "both kids", "share", "sibling", "side by side",
+      "hammock", "each other", "family",
+    ],
+    description:
+      "A shared spot built for more than one to be at ease in at the same time — including you.",
+    ideas: [
+      "Saucer or platform swing built for two",
+      "Wide hammock or hammock chair",
+      "Shared shade structure with a bench for a parent",
+      "A blanket-sized flat patch for a shared picnic spot",
+    ],
+  },
 };
 
 /** Pastel fills for the yard sketch (components/YardSketch.tsx) — kept off the main palette so zones stay visually distinct without competing with CTAs. */
@@ -96,4 +118,5 @@ export const ZONE_SWATCH: Record<ZoneId, string> = {
   calm: "#e2e7ea",
   "taste-smell": "#eef0d2",
   visual: "#ecdfea",
+  connection: "#f2ddc9",
 };

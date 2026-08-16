@@ -72,6 +72,16 @@ export function GrassTuft({ x, y }: { x: number; y: number }) {
   );
 }
 
+/** Two figures close together — the connection zone's shorthand for the mission doc's saucer-swing scene. */
+export function TogetherPair({ x, y }: { x: number; y: number }) {
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      <circle cx={-4.5} cy={0} r={4.5} fill="#c98a6b" stroke="#3f362c" strokeWidth={0.8} opacity={0.9} />
+      <circle cx={4.5} cy={0} r={4.5} fill="#e0a978" stroke="#3f362c" strokeWidth={0.8} opacity={0.9} />
+    </g>
+  );
+}
+
 export function CloudPuff({ x, y, scale = 1 }: { x: number; y: number; scale?: number }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`} opacity={0.5}>
