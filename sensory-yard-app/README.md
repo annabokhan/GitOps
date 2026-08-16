@@ -36,6 +36,16 @@ not a native build.
   before this goes further than a demo.
 - **Email capture** (`src/app/api/notify`) — logs to the console instead
   of writing to a real list.
+- **Yard sketch** (`src/components/YardSketch.tsx`, `src/lib/blob.ts`,
+  `src/lib/seededRandom.ts`, `src/components/sketch/doodles.tsx`) — real,
+  but procedural, not AI-image-generated (design doc §5.4 explains why:
+  cost, latency, and label-accuracy risk). Organic zone shapes and a
+  wobbled yard boundary come from a small deterministic path library;
+  per-zone doodles (tree, flowers, sprouts, pebbles, motion lines) are
+  hand-coded SVG. Everything is seeded from the report id + zone id, never
+  `Math.random()` — required so server-rendered and client-hydrated SVG
+  match exactly (a `Math.random()`-based version will throw a hydration
+  mismatch error).
 
 ## Config (design doc §9 — usage limits)
 

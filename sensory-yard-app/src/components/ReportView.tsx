@@ -32,7 +32,7 @@ export default function ReportView({ report }: { report: Report }) {
       <h1 className="text-2xl font-bold text-bark">{title}</h1>
 
       <div className="mt-5">
-        <YardSketch zones={report.zones} />
+        <YardSketch zones={report.zones} seed={report.id} />
       </div>
 
       <div className="mt-6 flex flex-col gap-4">

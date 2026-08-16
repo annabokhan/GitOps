@@ -9,9 +9,10 @@ const VIEW_W = 400;
 const VIEW_H = 300;
 const PAD = 10;
 const GAP = 10;
-const HOUSE_H = 30;
+const HOUSE_H = 50;
 
 export const SKETCH_VIEWBOX = `0 0 ${VIEW_W} ${VIEW_H}`;
+export { VIEW_W, VIEW_H, HOUSE_H };
 
 /**
  * Deterministic schematic packing — NOT derived from the parent's actual
@@ -60,5 +61,3 @@ export function yardLayout(zoneCount: number): CellRect[] {
     { x: innerX + cw + GAP, y: innerY + ch + GAP, w: cw, h: ch },
   ];
 }
-
-export const HOUSE_MARKER = { x: VIEW_W / 2 - 55, y: 0, w: 110, h: HOUSE_H - 6 };
