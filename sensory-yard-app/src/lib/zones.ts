@@ -35,14 +35,14 @@ export const ZONE_CATALOG: Record<
     description:
       "Big, safe ways to move — built for a kid whose body needs to move to feel settled.",
     ideas: [
-      "Balance beam or stepping logs",
+      "Balance beam or a stepping path made from tree rounds",
       "Tunnel to crawl through",
       "Saucer or platform swing",
       "Low climbing structure or log pile",
       "A smooth hard-surfaced loop — even a modest paved patch, existing patio, or deck — for bikes, scooters, or trikes; a flat loop gets used far more than its size suggests",
     ],
     whereToShop:
-      "Lumber and hardware from Home Depot or Lowe's; secondhand swing sets, climbing structures, and bikes/scooters often turn up on Facebook Marketplace or Craigslist for a fraction of retail price.",
+      "Lumber and hardware from Home Depot or Lowe's; tree rounds, secondhand swing sets, climbing structures, and bikes/scooters often turn up free or cheap on Nextdoor or Facebook Marketplace, especially after a neighbor has a tree removed.",
   },
   texture: {
     title: "Texture Zone",

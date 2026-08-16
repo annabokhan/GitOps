@@ -44,7 +44,12 @@ not a native build.
   trikes, not just climbing/balance equipment, and treats a mentioned
   patio or deck as a ready-made loop worth reusing — a real parent
   anecdote (an unplanned deck that became a bike/scooter track) that
-  the prompt was missing entirely before. The
+  the prompt was missing entirely before. Its balance/stepping idea
+  now specifically suggests tree rounds instead of generic "stepping
+  logs," and `whereToShop` guidance (both the prompt and the mock
+  catalog) now names Nextdoor alongside Facebook Marketplace/Craigslist
+  — Nextdoor in particular for things a neighbor's giving away after
+  yard work, tree rounds being the classic example. The
   structured-output schema lives in `src/lib/planSchema.ts`, the
   banned-term list + programmatic
   second-layer check in `src/lib/bannedTerms.ts`, and the
