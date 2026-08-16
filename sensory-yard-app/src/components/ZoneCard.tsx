@@ -1,10 +1,15 @@
 import { Zone } from "@/lib/types";
 
 // Design doc §5.4: one card per zone, matching source-spec §4.1 taxonomy 1:1.
-export default function ZoneCard({ zone }: { zone: Zone }) {
+// `index` matches the number badge on YardSketch so the sketch and the
+// detail list below it read as one connected artifact, not two outputs.
+export default function ZoneCard({ zone, index }: { zone: Zone; index: number }) {
   return (
     <div className="rounded-2xl border border-line bg-cream p-5">
       <div className="flex items-center gap-2">
+        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-bark text-xs font-bold text-bark">
+          {index}
+        </span>
         <span className="text-2xl" aria-hidden>
           {zone.icon}
         </span>

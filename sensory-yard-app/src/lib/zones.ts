@@ -11,7 +11,7 @@ export const ZONE_CATALOG: Record<
 > = {
   movement: {
     title: "Movement Zone",
-    icon: "🌿",
+    icon: "🏃",
     keywords: [
       "climb", "run", "jump", "spin", "swing", "big movement", "cant sit still",
       "can't sit still", "balance", "bike", "chase", "energy", "bolt", "wired",
@@ -87,4 +87,13 @@ export const ZONE_CATALOG: Record<
       "Colorful, varied plantings at eye level",
     ],
   },
+};
+
+/** Pastel fills for the yard sketch (components/YardSketch.tsx) — kept off the main palette so zones stay visually distinct without competing with CTAs. */
+export const ZONE_SWATCH: Record<ZoneId, string> = {
+  movement: "#dfe8da",
+  texture: "#f1e4cd",
+  calm: "#e2e7ea",
+  "taste-smell": "#eef0d2",
+  visual: "#ecdfea",
 };

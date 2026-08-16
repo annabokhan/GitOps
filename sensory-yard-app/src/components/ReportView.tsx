@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import ZoneCard from "./ZoneCard";
+import YardSketch from "./YardSketch";
 import EmailCapture from "./EmailCapture";
 import { Report } from "@/lib/types";
 
@@ -30,9 +31,13 @@ export default function ReportView({ report }: { report: Report }) {
     <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-5 pb-16 pt-6">
       <h1 className="text-2xl font-bold text-bark">{title}</h1>
 
+      <div className="mt-5">
+        <YardSketch zones={report.zones} />
+      </div>
+
       <div className="mt-6 flex flex-col gap-4">
-        {report.zones.map((zone) => (
-          <ZoneCard key={zone.id} zone={zone} />
+        {report.zones.map((zone, i) => (
+          <ZoneCard key={zone.id} zone={zone} index={i + 1} />
         ))}
       </div>
 

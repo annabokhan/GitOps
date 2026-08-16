@@ -202,15 +202,26 @@ This is the deliverable the parent actually came for, and the thing most likely 
 │  {kid}'s Sensory Yard Plan   │
 │                              │
 │  ┌────────────────────────┐ │
-│  │  🌿 Movement Zone        │ │  ← one card per zone
-│  │  Balance beam, tunnel... │ │     (source spec §4.1 taxonomy)
+│  │ ┌────┐ house ┌────┐    │ │  ← hand-drawn-style sketch:
+│  │ │ 🏃 1 │      │ 🤚 2 │    │ │     wobbly zone shapes + numbered
+│  │ └────┘       └────┘    │ │     badges inside a dashed yard
+│  │      ┌────────┐        │ │     boundary — the lead visual,
+│  │      │  🌤️ 3   │        │ │     not the cards below
+│  │      └────────┘        │ │
+│  │  "rough layout, not     │ │
+│  │   to scale"             │ │
 │  └────────────────────────┘ │
+│                              │
 │  ┌────────────────────────┐ │
-│  │  🖐️ Texture Zone         │ │
+│  │ ① 🏃 Movement Zone        │ │  ← one card per zone, numbered to
+│  │  Balance beam, tunnel... │ │     match its shape in the sketch
+│  └────────────────────────┘ │     above (source spec §4.1 taxonomy)
+│  ┌────────────────────────┐ │
+│  │ ② 🤚 Texture Zone         │ │
 │  │  Mint, chives, sand...   │ │
 │  └────────────────────────┘ │
 │  ┌────────────────────────┐ │
-│  │  🌤️ Calm Corner          │ │
+│  │ ③ 🌤️ Calm Corner          │ │
 │  │  ...                     │ │
 │  └────────────────────────┘ │
 │                              │
@@ -227,6 +238,8 @@ This is the deliverable the parent actually came for, and the thing most likely 
 └─────────────────────────────┘
 ```
 
+- **The report leads with a sketch, not text.** A rough, hand-drawn-style layout — a dashed yard boundary, a "house" marker for orientation, and one wobbly, pastel-filled shape per zone, each numbered to match the detail card below it. Rendered as inline SVG with an `feTurbulence`/`feDisplacementMap` filter so straight rectangles read as sketched-by-hand rather than a clinical diagram — no drawing library or image generation needed, and it's crisp at any zoom on both platforms. This is the primary deliverable now; the cards underneath are the reference detail, not a duplicate of the same information.
+- **Deliberately schematic, not to-scale.** Zone shapes are packed into a simple grid (1–4 zones) sized by count alone — Phase 1's free-text intake (§5.2) never collects real yard dimensions, a photo, or an address, so there's nothing to draw a measured plan from. The caption says so directly ("a rough layout, not to scale"). This distinction matters for the business, not just honesty: it keeps the free sketch from reading as the same deliverable as the paid custom design package (PRD §7, $1,500–6,000+), which would be based on an actual site visit or measurements. If a future phase adds real dimensions or a yard photo as intake, the layout function is the one place that changes — the zone data contract (§4.2) doesn't.
 - Zone cards match source-spec §4.1 taxonomy and §4.2 JSON output structure 1:1 — each JSON zone object renders as one card, so the frontend is a thin, dumb renderer over the schema. The extraction pass in §5.2 feeds this same schema, so switching intake formats didn't change the report's data contract.
 - Copy on every card is passed through the Section 3 banned-term filter *again* at render time (belt-and-suspenders on top of the backend's programmatic check in PRD §8) — if a banned term ever slipped through generation (now more possible with free-text input feeding the prompt — see §10), it should never reach a rendered screen a parent might screenshot and post.
 - **Share is a first-class action**, not an afterthought: PRD §4 names "sharing/referral behavior" as one of the exact signals Phase 1 exists to measure. Use `navigator.share()` where available (iOS Safari and Android Chrome both support it) so sharing goes straight to Messages/WhatsApp/Instagram — the actual channels parents use — rather than a generic "copy link" box.
@@ -281,7 +294,7 @@ The two platforms are one codebase, but a handful of behaviors need explicit han
 
 ## 8. Component inventory (for build handoff)
 
-`Header` (logo + About link, sticky) · `HeroCTA` · `OriginStorySnippet` · `ChatThread` · `ChatBubble` (assistant/parent variants) · `ChatTextInput` (with native-dictation affordance, no custom speech code) · `SuggestionChips` (tap-to-insert, sourced from source-spec §3.1 tags) · `QuickFactField` (age, zip — plain inputs, not chat) · `ReviewSummary` (verbatim playback of chat answers, per-answer Edit) · `PrimaryButton` (full-width mobile, disabled state) · `GeneratingAnimation` · `LimitReachedState` (§5.3b) · `ZoneCard` · `ShareButton` (Web Share API + clipboard fallback) · `EmailCapture` (parameterized by list name — "future shared space" vs. general, per PRD §2) · `ErrorState` (plain-language, retry action, never consumes a usage slot) · `FooterLinks` (Privacy, Research, About)
+`Header` (logo + About link, sticky) · `HeroCTA` · `OriginStorySnippet` · `ChatThread` · `ChatBubble` (assistant/parent variants) · `ChatTextInput` (with native-dictation affordance, no custom speech code) · `SuggestionChips` (tap-to-insert, sourced from source-spec §3.1 tags) · `QuickFactField` (age, zip — plain inputs, not chat) · `ReviewSummary` (verbatim playback of chat answers, per-answer Edit) · `PrimaryButton` (full-width mobile, disabled state) · `GeneratingAnimation` · `LimitReachedState` (§5.3b) · `YardSketch` (hand-drawn-style SVG layout, §5.4 — the report's lead visual) · `ZoneCard` (numbered to match its shape in `YardSketch`) · `ShareButton` (Web Share API + clipboard fallback) · `EmailCapture` (parameterized by list name — "future shared space" vs. general, per PRD §2) · `ErrorState` (plain-language, retry action, never consumes a usage slot) · `FooterLinks` (Privacy, Research, About)
 
 All components must render correctly with **no JS-driven layout past first paint** where feasible — this is a lead-gen funnel served largely from ad clicks on mobile data connections, so time-to-interactive on the intake CTA is a conversion-rate variable, not just a performance nice-to-have.
 
